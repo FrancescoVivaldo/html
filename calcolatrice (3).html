@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator with Arrays</title>
+    <style>
+        button{
+        display:grid;
+            grid-template-columns: repeat(4, 1lr);
+        }
+        body {
+            font-family: Arial, sans-serif;
+            margin: 50px;
+        }
+        .calculator {
+            width: 200px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+        }
+        input[type="button"] {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator">
+        <input type="text" id="result" placeholder="0" disabled>
+        <input type="button" value="1" onclick="addToArray(1)">
+        <input type="button" value="2" onclick="addToArray(2)">
+        <input type="button" value="3" onclick="addToArray(3)">
+        <input type="button" value="4" onclick="addToArray(4)">
+        <input type="button" value="5" onclick="addToArray(5)">
+        <input type="button" value="6" onclick="addToArray(6)">
+        <input type="button" value="7" onclick="addToArray(7)">
+        <input type="button" value="8" onclick="addToArray(8)">
+        <input type="button" value="9" onclick="addToArray(9)">
+        <input type="button" value="0" onclick="addToArray(0)">
+        <input type="button" value="*" onclick="addOperator('*')">
+        <input type="button" value="+" onclick="addOperator('+')">
+        <input type="button" value="-" onclick="addOperator('-')">
+        <input type="button" value="*" onclick="addOperator('*')">
+        <input type="button" value="=" onclick="calculate()">
+        <input type="button" value="/" onclick="addOperator('/')">
+        <input type="button" value="C" onclick="clearResult()">
+
+    </div>
+
+    <script>
+        let numbersArray = []; 
+        let operatorsArray = [];  
+        let currentNumber = '';  
+
+        function addToArray(num) {
+            currentNumber += num;
+            document.getElementById('result').value = currentNumber;
+        }
+
+        function addOperator(operator) {
+            if (currentNumber !== '') {
+                numbersArray.push(parseFloat(currentNumber));  
+                operatorsArray.push(operator);  
+                currentNumber = '';  
+                document.getElementById('result').value = '';  
+            }
+        }
+
+        function calculate() {
+            if (currentNumber !== '') {
+                numbersArray.push(parseFloat(currentNumber));  
+            }
+
+            let result = numbersArray[0];  
+
+            
+            for (let i = 0; i < operatorsArray.length; i++) {
+                let nextNumber = numbersArray[i + 1];
+                switch (operatorsArray[i]) {
+                    case '+':
+                        result += nextNumber;
+                        break;
+                    case '-':
+                        result -= nextNumber;
+                        break;
+                    case '*':
+                        result *= nextNumber;
+                        break;
+                    case '/':
+                        result /= nextNumber;
+                        break;
+                }
+            }
+
+            document.getElementById('result').value = result;  
+            clearArrays();  
+        }
+
+        function clearArrays() {
+            numbersArray = [];
+            operatorsArray = [];
+            currentNumber = '';
+        }
+
+        function clearResult() {
+            document.getElementById('result').value = '';
+            clearArrays();
+        }
+    </script>
+</body>
+</html>
