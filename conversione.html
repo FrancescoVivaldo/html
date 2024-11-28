@@ -1,0 +1,82 @@
+!DOCTYPE <html>
+<html lang="it">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="widht=device-whitd, initial-scale=1.0">
+    <h1>Conversione</h1>
+
+</head>
+
+<body>
+
+    <p><input type="text" id="numero" placeholder="numero"></p>
+    <p><input type="text" id="binario" placeholder="binario"></p>
+    <p><input type="text" id="ottale" placeholder="ottale"></p>
+    <p><input type="text" id="esadecimale" placeholder="esadecimale"></p>
+    <button type="button" id="buttonBin" onclick="Decimale()"> Trasforma il decimale in binario </button>
+    <button type="button" id="buttonOtt" onclick="Ottale()"> Trasforma il decimale in ottale </button>
+    <button type="button" id="buttonEsa" onclick="Esadecimale()"> Trasforma il decimale in esadecimale </button>
+
+</body>
+
+<script>
+    function Binario()
+    {
+       
+        let num = document.getElementByid('numero').value;
+        let dec = [];
+        
+        for(let i=0; i<num;)
+        {
+
+            if (parseInt(num)%2==0)
+            
+                dec[i] = 0;
+
+             else
+               
+                dec[i] = 1;
+            
+            parseInt(num)/parseInt(num)    
+
+        }
+        document.getElementByid(binario).innnerHTML = dec.reverse;
+    }
+
+    function Ottale()
+    {
+
+        let num = document.getElementById ('ottale').value;
+        let ott = [];
+        
+        for(let i=0; i<num;)
+        {
+
+            if (parseInt(num)%8==0)
+            
+                ott[i] = 0;
+
+             else
+             {
+               
+                ott[i] = num - parseInt(num)%8;ò
+
+             }
+            parseInt(num)/parseInt(num)    
+
+        }
+        document.getElementByid(ottale).innnerHTML = ott.reverse;
+
+    }
+
+    function Esadecimale 
+    {
+
+
+
+    }
+
+</script>
+
+</html>
