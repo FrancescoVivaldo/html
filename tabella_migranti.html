@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <title> SBARCHI MIGRANTI </title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+div{
+    float: left;
+}
+th, td {
+    width: 125px;
+    color: #c6c6c6;
+}
+th,td , #demo{
+    border: 1px solid;
+}
+body{
+    background-color: #eeeff3 ;
+}
+#demo{
+    float: center;
+    background-color: #0033ff ;
+    margin: 1% 32%;
+    width: 500px;
+}
+button{
+    width: 80px;
+    height: 40px;
+    border-radius: 10px;
+    background-color: #ffffff ;
+}
+input{ 
+    border-radius: 10px;
+    border-color: #000000 ;
+    background-color: #eeeff3 ;
+    margin: 15px;
+    width: 500px;
+    height: 40px;
+}
+::placeholder{
+    text-align: center;
+    color: #565656;
+}
+</style>
+<script>
+    
+    function tornaIndietro() {
+            window.location.href = "grafico_migranti.html";
+        }
+    function leggiFile(input){
+
+let file = input.files[0] //presa in input del file
+let lettoreF = new FileReader() //creazione oggetto filereader
+lettoreF.readAsText(file);
+
+lettoreF.onload = function() {
+let contenuto = lettoreF.result; // Contenuto del file letto
+creaTab(contenuto);
+}
+}
+function creaTab(tab){
+let righe= tab.split("\n")
+let colonne=[]
+let colonne1=[]
+for (let i = 0; i < righe.length; i++) {
+    colonne[i] = righe[i].split(',')
+}
+for (let i = 0; i < colonne.length; i++) {
+    for (let j = 0; j < colonne[i].length; j++) {
+        colonne1[2*i+j] = colonne[i][j].replaceAll('"','')
+    }
+}
+localStorage.setItem(1, colonne1);
+console.log(colonne1)
+for (let i = 0; i < colonne1.length; i++) {
+if (i%2==0){
+        document.getElementById("demo").innerHTML += "<tr><td>" + colonne1[i] + "</td><td>" + colonne1[i+1] + "</td></tr>";
+}
+}
+}
+
+</script>
+</head>
+<body>
+    <h1>Tabella migranti</h1>
+    <button onclick="tornaIndietro()">Vai alla Pagina 2</button>
+
+    <input type="file" onchange="leggiFile(this)">
+    <table id="demo" ></table>
+</body>
+</html>
+

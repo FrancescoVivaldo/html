@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <title> Sbarchi Migranti </title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        div {
+            float: left;
+        }
+        th, td {
+            width: 125px;
+            color: #c6c6c6;
+            border: 1px solid;
+            border-radius: 10px;
+        }
+        body {
+            background-color: #eeeff3;
+        }
+        #demo {
+            background-color: #0033ff;
+            margin: 1% auto;
+            width: 500px;
+            text-align: center;
+        }
+        button {
+            width: 80px;
+            height: 40px;
+            border-radius: 10px;
+            background-color: #ffffff;
+            cursor: pointer;
+        }
+        input {
+            border-radius: 10px;
+            border: 1px solid #000;
+            background-color: #eeeff3;
+            margin: 15px;
+            width: 500px;
+            height: 40px;
+        }
+        ::placeholder {
+            text-align: center;
+            color: #565656;
+        }
+    </style>
+</head>
+<body>
+    <h1>Grafico Migranti</h1>
+    <button onclick="tornaIndietro()">Torna alla Pagina 1</button>
+    <canvas id="myCanvas" width="1000" height="500">
+        Sorry, your browser does not support canvas.
+    </canvas>
+
+    <script>
+       function tornaIndietro() {
+            window.location.href = "tabella_migranti.html";
+        }  
+        window.onload = function() {
+            const canvas = document.getElementById("myCanvas");
+            const ctx = canvas.getContext("2d");
+
+            // Recupero dati da localStorage
+            let storedData = localStorage.getItem(1);
+            if (!storedData) {
+                console.error("Nessun dato trovato in localStorage.");
+                return;
+            }
+            
+            let tab = storedData.split(",");
+            let anno = [];
+            let num = [];
+
+            for (let i = 2; i < tab.length; i += 2) {
+                anno.push(tab[i]);
+                num.push(Number(tab[i + 1]));
+            }
+
+            let massimo = Math.max(...num);
+            console.log("Anni:", anno);
+            console.log("Dati numerici:", num);
+            console.log("Massimo valore:", massimo);
+
+            // Disegno gli assi
+            ctx.beginPath();
+            ctx.moveTo(50, 450); 
+            ctx.lineTo(50, 0);
+            ctx.moveTo(50, 450);
+            ctx.lineTo(1000, 450);
+            ctx.stroke();
+
+            // Etichette assi
+            ctx.font = "10px Arial";
+            ctx.fillStyle = "blue";
+            ctx.fillText('0', 40, 465);
+
+            let max = Math.ceil(massimo / 1000) * 1000;
+            let w = 950;
+            let h = 450;
+            let Ux = w / (anno.length + 1);
+            let Uy = 410 / max;
+
+            // Etichette sull'asse X
+            for (let i = 0; i < anno.length; i++) {
+                let xPos = (w / (anno.length + 1)) * (i + 1) + 50;
+                ctx.moveTo(xPos, h);
+                ctx.lineTo(xPos, h + 10);
+                ctx.fillText(anno[i], xPos - 12, h + 18);
+            }
+
+            // Etichette sull'asse Y
+            for (let i = 1; i <= 10; i++) {
+                let yPos = h / 11 * i;
+                ctx.moveTo(50, yPos);
+                ctx.lineTo(40, yPos);
+                ctx.fillText(max / 10 * (11 - i), 15, yPos - 3);
+            }
+
+            // Disegno il grafico
+            ctx.beginPath();
+            let X = 50;
+            let Y = 450;
+            ctx.moveTo(X, Y);
+
+            for (let i = 0; i < num.length; i++) {
+                X += Ux;
+                Y = 450 - (num[i] * Uy);
+                ctx.lineTo(X, Y);
+            }
+
+            ctx.stroke();
+
+            // Funzione per tornare indietro
+            function tornaIndietro() {
+                window.location.href = "tabella_migranti.html";
+            }
+        };
+    </script>
+</body>
+</html>
