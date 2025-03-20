@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registrazione Anagrafica</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        input, select, button { margin: 5px; padding: 8px; display: block; }
+    </style>
+</head>
+<body>
+
+    <h2>Inserisci i tuoi dati</h2>
+    <form id="anagraficaForm">
+        <input id="nome" placeholder="Nome" required>
+        <input id="cognome" placeholder="Cognome" required>
+        <input id="indirizzo" placeholder="Indirizzo">
+        <input type="number" id="eta" placeholder="Età" required>
+        <select id="sesso">
+            <option>Maschio</option>
+            <option>Femmina</option>
+            <option>Altro</option>
+        </select>
+        <button type="button" onclick="salvaDati()">Salva Dati</button>
+        <button type="button" onclick="location.href='tabellaarray.html'">Visualizza Dati</button>
+    </form>
+
+    <script>
+        function salvaDati() {
+            localStorage.setItem("datiAnagrafici", JSON.stringify(
+                    Object.fromEntries([...document.querySelectorAll("input, select")].map(e => [e.id, e.value]))
+                )); // Questa riga di codice raccoglie i valori di tutti gli <input> e <select> presenti nel documento e li converte in un oggetto JavaScript
+            alert("Dati salvati con successo!");
+        }
+    </script>
+
+</body>
+</html>

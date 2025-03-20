@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dati Registrati</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+        th, td { border: 1px solid black; padding: 8px; text-align: left; }
+        th { background: #f2f2f2; }
+    </style>
+</head>
+<body>
+
+    <h2>Dati Registrati</h2>
+    <table id="tabella"></table>
+
+    <button onclick="location.href='index.html'">Torna alla Registrazione</button>
+
+    <script>
+        const dati = JSON.parse(localStorage.getItem("datiAnagrafici")) || location.replace("index.html");
+        document.getElementById("tabella").innerHTML = `
+            <tr>${Object.keys(dati).map(k => `<th>${k}</th>`).join('')}</tr>
+            <tr>${Object.values(dati).map(v => `<td>${v}</td>`).join('')}</tr>`; // Queste due righe generano dinamicamente una tabella HTML basata sui dati salvati in dati
+    </script>
+
+</body>
+</html>
